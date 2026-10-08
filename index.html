@@ -5,93 +5,157 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>박정희 모바일 명함</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box}
 body{
     font-family:'Malgun Gothic',sans-serif;
     background:#f4f7fb;
     color:#0A2E6D;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    min-height:100vh;
     padding:20px;
 }
-.card{
-    width:100%;
+.container{
     max-width:420px;
+    margin:0 auto;
+}
+.card,.calc{
     background:#fff;
     border-radius:24px;
-    padding:35px 25px;
-    text-align:center;
-    box-shadow:0 10px 30px rgba(0,0,0,0.12);
+    padding:30px 24px;
+    box-shadow:0 10px 30px rgba(0,0,0,.12);
+    margin-bottom:20px;
 }
 .name{
     font-size:2.2rem;
     font-weight:700;
+    text-align:center;
     margin-bottom:12px;
 }
 .intro{
     font-size:1.1rem;
+    text-align:center;
     line-height:1.7;
-    margin-bottom:30px;
+    margin-bottom:25px;
 }
 .section-title{
     font-size:1.4rem;
     font-weight:700;
-    margin-bottom:20px;
+    text-align:center;
+    margin-bottom:18px;
 }
 .work-list{
     list-style:none;
 }
 .work-list li{
     background:#eef4ff;
-    margin:12px 0;
-    padding:16px;
+    padding:15px;
     border-radius:14px;
-    font-size:1.1rem;
+    margin:10px 0;
+    font-size:1.05rem;
     font-weight:600;
 }
 .contact-btn{
-    display:inline-block;
-    margin-top:35px;
-    padding:16px 40px;
+    display:block;
+    text-align:center;
+    text-decoration:none;
     background:#0A2E6D;
     color:#fff;
-    text-decoration:none;
-    font-size:1.2rem;
-    font-weight:700;
+    padding:16px;
     border-radius:50px;
-    transition:.3s;
+    font-size:1.15rem;
+    font-weight:700;
+    margin-top:25px;
 }
-.contact-btn:hover{
-    transform:translateY(-2px);
-    opacity:.9;
+.calc h2{
+    text-align:center;
+    margin-bottom:20px;
+    font-size:1.5rem;
+}
+label{
+    display:block;
+    margin:12px 0 6px;
+    font-weight:700;
+}
+input{
+    width:100%;
+    padding:14px;
+    border:1px solid #cfd8e3;
+    border-radius:12px;
+    font-size:1rem;
+}
+button{
+    width:100%;
+    margin-top:18px;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#0A2E6D;
+    color:#fff;
+    font-size:1.1rem;
+    font-weight:700;
+    cursor:pointer;
+}
+.result{
+    margin-top:20px;
+    text-align:center;
+    font-size:1.4rem;
+    font-weight:700;
+    color:#0A2E6D;
 }
 </style>
 </head>
 <body>
-<div class="card">
-    <div class="name">박정희</div>
-    <div class="intro">
-        월드인재개발원을 운영하며<br>
-        서비스 교육과 코칭을 제공하고 있습니다.
+<div class="container">
+
+    <div class="card">
+        <div class="name">박정희</div>
+
+        <div class="intro">
+            월드인재개발원을 운영하며<br>
+            서비스 교육과 코칭을 하고 있습니다.
+        </div>
+
+        <div class="section-title">주요 활동</div>
+
+        <ul class="work-list">
+            <li>숭실대학교 경영학부 겸임교수</li>
+            <li>월드인재개발원 대표</li>
+            <li>서비스 교육 및 코칭 전문가</li>
+        </ul>
+
+        <a href="tel:01000000000" class="contact-btn">상담 문의</a>
     </div>
 
-    <div class="section-title">주요 활동</div>
+    <div class="calc">
+        <h2>모임 회비 나누기</h2>
 
-    <ul class="work-list">
-        <li>숭실대학교 겸임교수</li>
-        <li>월드인재개발원 대표</li>
-        <li>서비스 교육 및 코칭 전문가</li>
-    </ul>
+        <label>총 금액(원)</label>
+        <input type="number" id="total" placeholder="예: 120000">
 
-    <a href="tel:010-0000-0000" class="contact-btn">상담 문의</a>
+        <label>인원 수</label>
+        <input type="number" id="people" placeholder="예: 8">
+
+        <button onclick="calculate()">계산하기</button>
+
+        <div class="result" id="result">1인당 금액 표시</div>
+    </div>
+
 </div>
 
 <script>
-document.querySelector('.contact-btn').addEventListener('click',function(){
-    alert('상담 문의를 환영합니다.');
-});
+function calculate(){
+    const total = Number(document.getElementById('total').value);
+    const people = Number(document.getElementById('people').value);
+
+    if(!total || !people || people <= 0){
+        document.getElementById('result').innerText =
+            '금액과 인원을 입력하세요';
+        return;
+    }
+
+    const perPerson = Math.round(total / people);
+
+    document.getElementById('result').innerText =
+        '1인당 ' + perPerson.toLocaleString('ko-KR') + '원';
+}
 </script>
 </body>
 </html>
